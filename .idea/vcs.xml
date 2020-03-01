@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Rotate_box_mAP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mAP" vcs="Git" />
   </component>
 </project>
