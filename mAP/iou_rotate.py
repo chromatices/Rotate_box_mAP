@@ -6,13 +6,14 @@ from __future__ import print_function
 
 import cv2
 import numpy as np
-from rbbox_overlaps import rbbx_overlaps
+# from rbbox_overlaps import rbbx_overlaps
 
 def iou_rotate_calculate(boxes1, boxes2, use_gpu=True, gpu_id=0):
 
     # start = time.time()
     if use_gpu:
-        ious = rbbx_overlaps(boxes1, boxes2, gpu_id)
+        pass
+        # ious = rbbx_overlaps(boxes1, boxes2, gpu_id)
     else:
         area1 = boxes1[:, 2] * boxes1[:, 3]
         area2 = boxes2[:, 2] * boxes2[:, 3]

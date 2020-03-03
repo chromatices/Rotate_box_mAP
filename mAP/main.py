@@ -1,6 +1,7 @@
+import os
+import math
 import glob
 import json
-import os
 import shutil
 import argparse
 import numpy as np
@@ -11,6 +12,7 @@ from utils.log_average_miss_rate import log_average_miss_rate
 from utils.file_lines_to_list import file_lines_to_list
 from utils.draw_text_in_image import draw_text_in_image
 from utils.draw_plot_func import draw_plot_func
+from utils.annotation_converters import RotatedBBoxConverter
 from iou_rotate import iou_rotate_calculate
 from utils.average_precision import voc_ap
 from utils.error import error
@@ -225,7 +227,7 @@ def main(GT_PATH : os.path, DR_PATH : os.path, IMG_PATH : os.path):
                     tmp_class_name, confidence, cx, cy, width, height, theta = line.split()
                 except ValueError:
                     error_msg = "Error: File " + txt_file + " in the wrong format.\n"
-                    error_msg += " Expected: <class_name> <confidence> <left> <top> <right> <bottom>\n"
+                    error_msg += " Expected: <class_name> <confidence> <cx> <cy> <width> <height> <theta>\n"
                     error_msg += " Received: " + line
                     error(error_msg)
                 if tmp_class_name == class_name:
@@ -381,16 +383,59 @@ def main(GT_PATH : os.path, DR_PATH : os.path, IMG_PATH : os.path):
                     img, line_width = draw_text_in_image(img, text, (margin + line_width, v_pos), color, line_width)
 
                     font = cv2.FONT_HERSHEY_SIMPLEX
+                    rb_cvt = RotatedBBoxConverter()
                     if ovmax > 0:  # if there is intersections between the bounding-boxes
                         bbgt = [int(round(float(x))) for x in gt_match["bbox"].split()]
-                        cv2.rectangle(img, (bbgt[0], bbgt[1]), (bbgt[2], bbgt[3]), light_blue, 2)
-                        cv2.rectangle(img_cumulative, (bbgt[0], bbgt[1]), (bbgt[2], bbgt[3]), light_blue, 2)
-                        cv2.putText(img_cumulative, class_name, (bbgt[0], bbgt[1] - 5), font, 0.6, light_blue, 1,
+                        cx = bbgt[0]
+                        cy = bbgt[1]
+                        width = bbgt[2]
+                        height = bbgt[3]
+                        theta = -math.radians(bbgt[4])
+
+                        xmin = cx - (width / 2)
+                        ymin = cy - (height / 2)
+                        xmax = width + xmin
+                        ymax = height + ymin
+                        bbgt_box = np.array([xmin, ymin, xmax, ymax])
+
+                        horizon_bbox_points = rb_cvt.bbox_to_points(bbgt_box)
+                        rotated_bbox_points = rb_cvt.rotate_horizon_bbox_with_theta(horizon_bbox_points,theta)
+
+                        p1 = rotated_bbox_points[0][:-1].astype('int').tolist()
+                        p2 = rotated_bbox_points[1][:-1].astype('int').tolist()
+                        p3 = rotated_bbox_points[2][:-1].astype('int').tolist()
+                        p4 = rotated_bbox_points[3][:-1].astype('int').tolist()
+                        points = np.array([p1,p2,p3,p4])
+                        cv2.polylines(img, [points], True, color, 2)
+                        cv2.polylines(img_cumulative,[points],True,color,2)
+                        cv2.putText(img_cumulative, class_name, (p1[0], p2[0] - 5), font, 0.6, light_blue, 1,
                                     cv2.LINE_AA)
+
                     bb = [int(i) for i in bb]
-                    cv2.rectangle(img, (bb[0], bb[1]), (bb[2], bb[3]), color, 2)
-                    cv2.rectangle(img_cumulative, (bb[0], bb[1]), (bb[2], bb[3]), color, 2)
-                    cv2.putText(img_cumulative, class_name, (bb[0], bb[1] - 5), font, 0.6, color, 1, cv2.LINE_AA)
+                    cx = bb[0]
+                    cy = bb[1]
+                    width = bb[2]
+                    height = bb[3]
+                    theta = -math.radians(bb[4])
+
+                    xmin = cx - (width / 2)
+                    ymin = cy - (height / 2)
+                    xmax = width + xmin
+                    ymax = height + ymin
+                    bb_box = np.array([xmin, ymin, xmax, ymax])
+
+                    horizon_bbox_points = rb_cvt.bbox_to_points(bb_box)
+                    rotated_bbox_points = rb_cvt.rotate_horizon_bbox_with_theta(horizon_bbox_points, theta)
+
+                    p1 = rotated_bbox_points[0][:-1].astype('int').tolist()
+                    p2 = rotated_bbox_points[1][:-1].astype('int').tolist()
+                    p3 = rotated_bbox_points[2][:-1].astype('int').tolist()
+                    p4 = rotated_bbox_points[3][:-1].astype('int').tolist()
+                    points = np.array([p1, p2, p3, p4])
+                    cv2.polylines(img, [points], True, color, 2)
+                    cv2.polylines(img_cumulative, [points], True, color, 2)
+                    cv2.putText(img_cumulative, class_name, (p1[0], p2[0] - 5), font, 0.6, light_blue, 1,
+                                cv2.LINE_AA)
                     # show image
                     cv2.imshow("Animation", img)
                     cv2.waitKey(20)  # show for 20 ms
