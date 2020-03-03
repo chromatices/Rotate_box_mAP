@@ -1,11 +1,11 @@
 #### This repository was created by combining Cartucho's mAP with 
-#### the R2CNN-Plus-Plus_Tensorflow/blob/master/libs/box_utils/iou_rotate.pystore in DetectionTeamUCAS.
+#### the R2CNN-Plus-Plus_Tensorflow/blob/master/libs/box_utils/iou_rotate.py store in DetectionTeamUCAS.
 
 
 ### * [Cartucho's mAP](https://github.com/Cartucho/mAP)
 
  
-#### * [DetectionTeamUCAS's R2CNN-Plus_Plus_Tensorflow](https://github.com/DetectionTeamUCAS/R2CNN-Plus-Plus_Tensorflow/blob/master/libs/box_utils/iou_rotate.py)
+### * [DetectionTeamUCAS's R2CNN-Plus_Plus_Tensorflow](https://github.com/DetectionTeamUCAS/R2CNN-Plus-Plus_Tensorflow/blob/master/libs/box_utils/iou_rotate.py)
 
 
 ### RBBox mAP(Rotated Bounding Box mean Average Precision)
