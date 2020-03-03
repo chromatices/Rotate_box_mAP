@@ -32,7 +32,7 @@ $ python main.py -na --gpu (cpu,gpu)
 ```
 Animator does not work on colab.
 
-#### If you want other information, please visit [Cartucho's mAP](https://github.com/Cartucho/mAP) repository.
+#### If you want other information of mean Average Precision, please visit [Cartucho's mAP](https://github.com/Cartucho/mAP) repository.
 #### There has many Reference like IoU and other things.
 
 
