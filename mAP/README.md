@@ -12,7 +12,7 @@
 
 [![GitHub stars](https://ifh.cc/g/9UgFG.gif)](https://github.com/chromatices/Rotate_box_mAP/tree/master/mAP)
 
-### This repository did not use exact coordinates, and used data to convert from the existing box coordinates to the Rbox coordinates to ensure that the code returns normally.
+### This repository did not use exact coordinates, and used data to convert from the existing bbox coordinates to the Rbbox coordinates to ensure that the code returns normally.
 
 ## HOW TO USE
 
