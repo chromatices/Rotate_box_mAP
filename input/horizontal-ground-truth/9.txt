@@ -1,0 +1,16 @@
+Upper_molar 860 537 185 291 0.0
+Upper_Canine 1314 542 114 312 0.0
+Implant 1414 561 89 313 0.0
+Upper_Central_incisor 1504 571 103 311 0.0
+Upper_Central_incisor 1611 569 103 315 0.0
+Upper_Canine 1787 556 126 316 0.0
+Upper_molar 2217 546 146 252 0.0
+Lower_molar 2170 796 286 270 0.0
+Lower_Canine 1755 888 145 260 0.0
+Lower_Lateral_incisor 1674 886 108 232 0.0
+Lower_Central_incisor 1621 893 80 220 0.0
+Lower_Central_incisor 1550 895 70 207 0.0
+Lower_Lateral_incisor 1479 898 83 224 0.0
+Lower_Canine 1370 887 121 277 0.0
+Lower_premolar 1246 861 163 255 0.0
+Lower_premolar 1125 818 218 269 0.0
