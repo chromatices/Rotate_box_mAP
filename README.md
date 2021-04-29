@@ -15,9 +15,6 @@
 ![9](https://user-images.githubusercontent.com/56014940/116551916-62be5880-a933-11eb-9321-592cc70d6559.jpg)
 
 
-
-### This repository did not use exact coordinates, and used data to convert from the existing bbox coordinates to the Rbbox coordinates to ensure that the code returns normally.
-
 ## HOW TO USE
 
 
